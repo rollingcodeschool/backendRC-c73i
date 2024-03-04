@@ -20,3 +20,8 @@ app.use(express.urlencoded({extended:true}))// ayuda a interpretar los datos del
 //falta configurar el inde.html
 
 //3 - configurar las rutas
+app.get('/', (req, res)=>{
+ console.log('alguien solicito algo');
+ //falta configurar la respuesta
+ res.send('respuesta desde nuestro backend de rollingCoffee')
+})
