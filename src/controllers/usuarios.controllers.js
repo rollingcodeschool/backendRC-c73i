@@ -1,8 +1,8 @@
 import { Usuario } from "../database/model/usuario.js";
-
+import bcrypt from "bcrypt";
 export const crearUsuario = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
     //verificar si el mail ya existe en la BD
     const emailValidacion = await Usuario.findOne({ email });
     if (emailValidacion) {
@@ -11,17 +11,21 @@ export const crearUsuario = async (req, res) => {
       });
     }
     //encriptar el password
-    //   const saltos = await bcrypts.genSalt(8);
-    //   const passEncriptada = await bcrypts.hash(password, saltos);
+    const saltos = bcrypt.genSaltSync(10);
+    const passEncriptada = bcrypt.hashSync(password, saltos);
     const nuevoUsuario = new Usuario(req.body);
+    //actualizar el password
+    nuevoUsuario.password = passEncriptada;
     nuevoUsuario.save();
+    //todo: agregar un token
+    
     res.status(201).json({
       mensaje: "Usuario creado correctamente.",
       email: nuevoUsuario.email,
       nombreUsuario: nuevoUsuario.nombreUsuario,
     });
   } catch (error) {
-    console.error(error)
+    console.error(error);
     res.status(500).json({
       mensaje: "Error al intentar crear un usuario.",
     });

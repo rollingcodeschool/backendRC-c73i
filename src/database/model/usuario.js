@@ -15,13 +15,7 @@ const usuarioSchema = new mongoose.Schema({
   password: {
     type: String,
     trim: true,
-    require: true,
-    validate: {
-        validator: (value)=>{
-            const pattern = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/
-            return pattern.test(value)
-        }
-    }
+    require: true
   },
   role: {
     type: String,
