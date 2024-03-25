@@ -6,6 +6,7 @@ import {fileURLToPath} from 'url';
 import path from 'path';
 import productosRouter from './src/routes/productos.routes.js';
 import './src/database/database.js'
+import usuarioRouter from './src/routes/usuarios.routes.js';
 
 //1- configurar un puerto
 // puedo compilar el index.js usando node --watch index.js en forma experimental
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname,'/public')))
 //3 - configurar las rutas
 //http://localhost:4001/api/productos
 app.use('/api', productosRouter)
+app.use('/api/usuario', usuarioRouter)
 
 // app.get('/nuevo', (req, res)=>{
 //  console.log('alguien solicito algo');
